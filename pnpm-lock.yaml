@@ -8,12 +8,9 @@ importers:
 
   .:
     dependencies:
-<<<<<<< HEAD
-=======
       docx:
         specifier: ^9.13.0
         version: 9.13.0
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
       jspdf:
         specifier: ^4.2.1
         version: 4.2.1
@@ -318,12 +315,9 @@ packages:
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
 
-<<<<<<< HEAD
-=======
   '@types/node@26.6.5':
     resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   '@types/pako@2.0.4':
     resolution: {integrity: sha512-VWDCbrLeVXJM9fihYodcLiIv0ku+AlOa/TQ1SvYOaBuyrSKgEcro95LJyIsJ4vSo6BXIxOKxiJAat04CmST9Fw==}
 
@@ -344,11 +338,6 @@ packages:
   core-js@3.51.0:
     resolution: {integrity: sha512-7bDKx/5jm5MxzsXxc93g6Z2+4ZsuT/MddrfRmTDJNAkWsYWHU8EVNEsBiIEWnMAMCHMmRfUEjkuo3jeNBOIHRw==}
 
-<<<<<<< HEAD
-  css-line-break@2.1.0:
-    resolution: {integrity: sha512-FHcKFCZcAha3LwfVBhCQbW2nCNbkZXn7KVUJcsT5/P8YmfsVja0FMPJr0B903j/E69HUphKiV9iQArX8SDYA4w==}
-
-=======
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
@@ -359,7 +348,6 @@ packages:
     resolution: {integrity: sha512-MofrvX7rzwCe1xUFXnwneQHzv2p1lIUIDPD01DueOnKGw+TSKxAAcK5Beo69bTyqKUYsX8d49Co03Bcntc60WQ==}
     engines: {node: '>=10'}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   dompurify@3.4.17:
     resolution: {integrity: sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==}
 
@@ -388,24 +376,13 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-<<<<<<< HEAD
-=======
   hash.js@1.1.7:
     resolution: {integrity: sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   html2canvas@1.4.1:
     resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
     engines: {node: '>=8.0.0'}
 
-<<<<<<< HEAD
-  iobuffer@5.4.0:
-    resolution: {integrity: sha512-DRebOWuqDvxunfkNJAlc3IzWIPD5xVxwUNbHr7xKB8E6aLJxIPfNX3CoMJghcFjpv6RWQsrcJbghtEwSPoJqMA==}
-
-  jspdf@4.2.1:
-    resolution: {integrity: sha512-YyAXyvnmjTbR4bHQRLzex3CuINCDlQnBqoSYyjJwTP2x9jDLuKDzy7aKUl0hgx3uhcl7xzg32agn5vlie6HIlQ==}
-
-=======
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
@@ -430,14 +407,11 @@ packages:
   minimalistic-assert@1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   nanoid@3.3.20:
     resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-<<<<<<< HEAD
-=======
   nanoid@6.0.2:
     resolution: {integrity: sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==}
     engines: {node: ^22 || ^24 || >=26}
@@ -446,7 +420,6 @@ packages:
   pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   pako@2.2.0:
     resolution: {integrity: sha512-zJq6RP/5q+TO2OpFV3FHzlPnFjmkb7Nc99a5SNjJE+uu/PkpChs+NIZSSzbBoD+6kjiISXjfYdwj1ZRQ81dz/w==}
 
@@ -464,11 +437,6 @@ packages:
     resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
     engines: {node: ^10 || ^12 || >=14}
 
-<<<<<<< HEAD
-  raf@3.4.1:
-    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
-
-=======
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
@@ -478,7 +446,6 @@ packages:
   readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
@@ -505,12 +472,9 @@ packages:
     resolution: {integrity: sha512-yf7OENo23AGJhBriGx0QivY5JP6Y1HbrrDI6WLt6C5auYZXlQrheoY8hD4ibekFKz1HOfE48Ww8kMWMnJD/zcQ==}
     engines: {node: '>=0.1.14'}
 
-<<<<<<< HEAD
-=======
   string_decoder@1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   svg-pathdata@6.0.3:
     resolution: {integrity: sha512-qsjeeq5YjBZ5eMdFuUa4ZosMLxgr5RZ+F+Y1OrDhuOCEInRMA3x74XdBtggJcj9kOeInz0WE+LgCPDkZFlBYJw==}
     engines: {node: '>=12.0.0'}
@@ -522,15 +486,12 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
-<<<<<<< HEAD
-=======
   undici-types@8.9.0:
     resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
 
@@ -736,13 +697,10 @@ snapshots:
 
   '@types/estree@1.0.9': {}
 
-<<<<<<< HEAD
-=======
   '@types/node@26.6.5':
     dependencies:
       undici-types: 8.9.0
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   '@types/pako@2.0.4': {}
 
   '@types/raf@3.4.3':
@@ -769,18 +727,13 @@ snapshots:
   core-js@3.51.0:
     optional: true
 
-<<<<<<< HEAD
-=======
   core-util-is@1.0.3: {}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   css-line-break@2.1.0:
     dependencies:
       utrie: 1.0.2
     optional: true
 
-<<<<<<< HEAD
-=======
   docx@9.13.0:
     dependencies:
       '@types/node': 26.6.5
@@ -788,7 +741,6 @@ snapshots:
       jszip: 3.10.2
       nanoid: 6.0.2
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   dompurify@3.4.17:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
@@ -838,24 +790,17 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-<<<<<<< HEAD
-=======
   hash.js@1.1.7:
     dependencies:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   html2canvas@1.4.1:
     dependencies:
       css-line-break: 2.1.0
       text-segmentation: 1.0.3
     optional: true
 
-<<<<<<< HEAD
-  iobuffer@5.4.0: {}
-
-=======
   immediate@3.0.6: {}
 
   inherits@2.0.4: {}
@@ -864,7 +809,6 @@ snapshots:
 
   isarray@1.0.0: {}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   jspdf@4.2.1:
     dependencies:
       '@babel/runtime': 7.29.10
@@ -876,10 +820,6 @@ snapshots:
       dompurify: 3.4.17
       html2canvas: 1.4.1
 
-<<<<<<< HEAD
-  nanoid@3.3.20: {}
-
-=======
   jszip@3.10.2:
     dependencies:
       lie: 3.3.0
@@ -899,7 +839,6 @@ snapshots:
 
   pako@1.0.11: {}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   pako@2.2.0: {}
 
   performance-now@2.1.0:
@@ -915,18 +854,13 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-<<<<<<< HEAD
-=======
   process-nextick-args@2.0.1: {}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   raf@3.4.1:
     dependencies:
       performance-now: 2.1.0
     optional: true
 
-<<<<<<< HEAD
-=======
   readable-stream@2.3.8:
     dependencies:
       core-util-is: 1.0.3
@@ -937,7 +871,6 @@ snapshots:
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   regenerator-runtime@0.13.11:
     optional: true
 
@@ -985,13 +918,10 @@ snapshots:
   stackblur-canvas@2.7.0:
     optional: true
 
-<<<<<<< HEAD
-=======
   string_decoder@1.1.1:
     dependencies:
       safe-buffer: 5.1.2
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   svg-pathdata@6.0.3:
     optional: true
 
@@ -1005,23 +935,16 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
 
-<<<<<<< HEAD
-=======
   undici-types@8.9.0: {}
 
   util-deprecate@1.0.2: {}
 
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   utrie@1.0.2:
     dependencies:
       base64-arraybuffer: 1.0.2
     optional: true
 
-<<<<<<< HEAD
-  vite@7.3.7:
-=======
   vite@7.3.7(@types/node@26.6.5):
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
     dependencies:
       esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.7)

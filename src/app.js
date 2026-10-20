@@ -1,21 +1,4 @@
 import './styles.css';
-<<<<<<< HEAD
-=======
-import {
-  AlignmentType,
-  BorderStyle,
-  Document,
-  ImageRun,
-  Packer,
-  Paragraph,
-  Table,
-  TableCell,
-  TableRow,
-  TextRun,
-  WidthType
-} from 'docx';
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
-import { jsPDF } from 'jspdf';
 
 const state = {
   images: { front: null, back: null },
@@ -276,7 +259,6 @@ async function prepareImage(item, options) {
   return canvas.toDataURL('image/jpeg', .94);
 }
 
-<<<<<<< HEAD
 function printCard(imageUrl, side, crossingText, options) {
   if (!imageUrl) return '<div class="missing-side">Side not supplied</div>';
   const mark = crossingText ? `<span class="print-crossing" style="opacity:${options.opacity / 100};font-size:${options.size}em;font-weight:${options.bold ? 800 : 600}">${escapeHtml(crossingText)}</span>` : '';
@@ -292,9 +274,6 @@ function buildPrintHtml(images, crossingText, options, title = 'IDMatrix print s
   return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title><style>@page{size:A4 portrait;margin:10mm}*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#111;font-family:Arial,sans-serif}.sheet{width:190mm;height:277mm;margin:0 auto;display:flex;align-items:center;break-after:page;page-break-after:always}.sheet:last-child{break-after:auto;page-break-after:auto}.print-grid{width:200mm;margin:0 -5mm;border-collapse:separate;border-spacing:5mm 4mm;table-layout:fixed}.print-cell{width:50%;height:57mm;padding:2mm;border:1px dashed #bbc2cc;text-align:center;vertical-align:middle;break-inside:avoid}.print-image-wrap{position:relative;width:100%;height:51mm;display:table;table-layout:fixed}.print-image-wrap img{display:block;max-width:100%;max-height:51mm;margin:auto;object-fit:contain}.print-crossing{position:absolute;inset:auto 0;transform:rotate(-25deg);color:#d7263d;text-align:center;letter-spacing:.04em;line-height:1.05;pointer-events:none}.missing-side{width:100%;padding:8mm 2mm;text-align:center;color:#8b95a7;font-size:8pt}@media screen{body{padding:10mm 0}.sheet{margin-bottom:10mm;box-shadow:0 0 5mm rgba(0,0,0,.18)}}@media print{.sheet{margin:0}}</style></head><body>${pages}</body></html>`;
 }
 
-function downloadBlob(content, filename, type) {
-  const url = URL.createObjectURL(new Blob([content], { type }));
-=======
 function dataUrlToUint8Array(dataUrl) {
   const base64 = dataUrl.split(',')[1] || '';
   const binary = atob(base64);
@@ -303,7 +282,6 @@ function dataUrlToUint8Array(dataUrl) {
 
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
@@ -311,64 +289,6 @@ function downloadBlob(blob, filename) {
   link.click();
   link.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-<<<<<<< HEAD
-function createPdf(images, crossingText, options) {
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-  const sides = ['front', 'back'];
-  const left = 10;
-  const top = 28.5;
-  const cellWidth = 92.5;
-  const cellHeight = 57;
-  const columnGap = 5;
-  const rowGap = 4;
-
-  sides.forEach((side, sideIndex) => {
-    if (sideIndex > 0) pdf.addPage('a4', 'portrait');
-    for (let index = 0; index < 8; index += 1) {
-      const column = index % 2;
-      const row = Math.floor(index / 2);
-      const x = left + column * (cellWidth + columnGap);
-      const y = top + row * (cellHeight + rowGap);
-      const image = images[side];
-
-      pdf.setDrawColor(187, 194, 204);
-      pdf.setLineDashPattern([1, 1], 0);
-      pdf.rect(x, y, cellWidth, cellHeight);
-      pdf.setLineDashPattern([], 0);
-
-      if (!image) {
-        pdf.setTextColor(139, 149, 167);
-        pdf.setFontSize(8);
-        pdf.text('Side not supplied', x + cellWidth / 2, y + cellHeight / 2, { align: 'center' });
-        continue;
-      }
-
-      const imageBox = { x: x + 2, y: y + 3, width: cellWidth - 4, height: 51 };
-      const dimensions = pdf.getImageProperties(image);
-      const scale = Math.min(imageBox.width / dimensions.width, imageBox.height / dimensions.height);
-      const width = dimensions.width * scale;
-      const height = dimensions.height * scale;
-      const imageX = imageBox.x + (imageBox.width - width) / 2;
-      const imageY = imageBox.y + (imageBox.height - height) / 2;
-      pdf.addImage(image, 'JPEG', imageX, imageY, width, height, undefined, 'FAST');
-
-      if (crossingText) {
-        const opacity = Math.max(0, Math.min(1, options.opacity / 100));
-        pdf.setTextColor(215 + (255 - 215) * (1 - opacity), 38 + (255 - 38) * (1 - opacity), 61 + (255 - 61) * (1 - opacity));
-        pdf.setFont('helvetica', options.bold ? 'bold' : 'normal');
-        pdf.setFontSize(16 * options.size);
-        pdf.text(crossingText, x + cellWidth / 2, y + cellHeight / 2, {
-          align: 'center',
-          angle: -25,
-          maxWidth: cellWidth - 8
-        });
-      }
-    }
-  });
-
-  return pdf;
 }
 
 function createOutputWindow() {
@@ -409,24 +329,27 @@ function openPrintWindow(html) {
   return true;
 }
 
-function renderResult(type, wordHtml, pdfHtml, images, crossingText, options) {
-=======
-function imageRun(dataUrl, width = 250, height = 82) {
-  return new ImageRun({
+function imageRun(dataUrl, docx, width = 250, height = 82) {
+  return new docx.ImageRun({
     data: dataUrlToUint8Array(dataUrl),
     type: dataUrl.startsWith('data:image/png') ? 'png' : 'jpg',
     transformation: { width, height }
   });
 }
 
-function docxSide(dataUrl, crossingText, options) {
-  if (!dataUrl) return [new Paragraph({ text: 'Side not supplied', alignment: AlignmentType.CENTER })];
-  const paragraphs = [new Paragraph({ children: [imageRun(dataUrl)], alignment: AlignmentType.CENTER, spacing: { before: 30, after: 30 } })];
+function docxSide(dataUrl, crossingText, options, docx) {
+  if (!dataUrl) return [new docx.Paragraph({ text: 'Side not supplied', alignment: docx.AlignmentType.CENTER })];
+  const paragraphs = [new docx.Paragraph({ children: [imageRun(dataUrl, docx)], alignment: docx.AlignmentType.CENTER, spacing: { before: 30, after: 30 } })];
   if (crossingText) {
-    paragraphs.push(new Paragraph({
-      children: [new TextRun({
+    const opacity = Math.max(0, Math.min(1, options.opacity / 100));
+    const red = Math.round(215 + (255 - 215) * (1 - opacity)).toString(16).padStart(2, '0');
+    const green = Math.round(38 + (255 - 38) * (1 - opacity)).toString(16).padStart(2, '0');
+    const blue = Math.round(61 + (255 - 61) * (1 - opacity)).toString(16).padStart(2, '0');
+    paragraphs.push(new docx.Paragraph({
+      children: [new docx.TextRun({
         text: crossingText,
-        color: 'D7263D',
+        color: `${red}${green}${blue}`,
+        size: Math.round(20 * options.size),
         italics: !options.bold,
         bold: options.bold
       })],
@@ -438,10 +361,12 @@ function docxSide(dataUrl, crossingText, options) {
 }
 
 async function createDocx(images, crossingText, options) {
-  const rows = Array.from({ length: 4 }, (_, rowIndex) => new TableRow({
+  const docx = await import('docx');
+  const { AlignmentType, BorderStyle, Document, Packer, Paragraph, Table, TableCell, TableRow, WidthType } = docx;
+  const rows = Array.from({ length: 4 }, (_, rowIndex) => new docx.TableRow({
     children: Array.from({ length: 2 }, (_, columnIndex) => {
       const copyIndex = rowIndex * 2 + columnIndex;
-      return new TableCell({
+      return new docx.TableCell({
         width: { size: 50, type: WidthType.PERCENTAGE },
         margins: { top: 90, bottom: 90, left: 90, right: 90 },
         borders: {
@@ -452,8 +377,8 @@ async function createDocx(images, crossingText, options) {
         },
         children: [
           new Paragraph({ text: `Copy ${copyIndex + 1}`, alignment: AlignmentType.CENTER, style: 'Caption' }),
-          ...docxSide(images.front, crossingText, options),
-          ...docxSide(images.back, crossingText, options)
+          ...docxSide(images.front, crossingText, options, docx),
+          ...docxSide(images.back, crossingText, options, docx)
         ]
       });
     })
@@ -498,38 +423,43 @@ async function addPdfSide(pdf, dataUrl, x, y, maxWidth, maxHeight, crossingText,
     pdf.setTextColor(215, 38, 61);
     pdf.setFont('helvetica', options.bold ? 'bold' : 'normal');
     pdf.setFontSize(10 * options.size);
+    pdf.setGState(new pdf.GState({ opacity: Math.max(0, Math.min(1, options.opacity / 100)) }));
     pdf.text(crossingText, x + maxWidth / 2, y + maxHeight / 2, { align: 'center', angle: -25, maxWidth: maxWidth * .9 });
+    pdf.setGState(new pdf.GState({ opacity: 1 }));
   }
 }
 
 async function createPdf(images, crossingText, options) {
+  const { jsPDF } = await import('jspdf');
   const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+  const sides = ['front', 'back'];
   const margin = 10;
-  const gap = 5;
-  const cellWidth = (210 - margin * 2 - gap) / 2;
-  const cellHeight = (297 - margin * 2 - gap * 3) / 4;
-  for (let row = 0; row < 4; row += 1) {
-    for (let column = 0; column < 2; column += 1) {
-      const x = margin + column * (cellWidth + gap);
-      const y = margin + row * (cellHeight + gap);
-      pdf.setDrawColor(185, 194, 204);
+  const top = 28.5;
+  const gapX = 5;
+  const gapY = 4;
+  const cellWidth = (210 - margin * 2 - gapX) / 2;
+  const cellHeight = 57;
+
+  for (const [sideIndex, side] of sides.entries()) {
+    if (sideIndex > 0) pdf.addPage('a4', 'portrait');
+    for (let index = 0; index < 8; index += 1) {
+      const column = index % 2;
+      const row = Math.floor(index / 2);
+      const x = margin + column * (cellWidth + gapX);
+      const y = top + row * (cellHeight + gapY);
+      pdf.setDrawColor(187, 194, 204);
       pdf.setLineDashPattern([1, 1], 0);
       pdf.rect(x, y, cellWidth, cellHeight);
       pdf.setLineDashPattern([], 0);
-      const innerX = x + 3;
-      const slotWidth = cellWidth - 6;
-      const slotHeight = (cellHeight - 8) / 2;
-      await addPdfSide(pdf, images.front, innerX, y + 3, slotWidth, slotHeight, crossingText, options);
-      await addPdfSide(pdf, images.back, innerX, y + 5 + slotHeight, slotWidth, slotHeight, crossingText, options);
+      await addPdfSide(pdf, images[side], x + 2, y + 3, cellWidth - 4, cellHeight - 6, crossingText, options);
     }
   }
   return pdf.output('blob');
 }
 
-function renderResult(type, wordBlob, pdfBlob) {
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
+function renderResult(type, wordBlob, pdfBlob, printHtml) {
   elements.resultLinks.replaceChildren();
-  $('#resultCaption').textContent = type === 'both' ? 'Real DOCX and PDF files prepared locally' : `${type.toUpperCase()} file prepared locally`;
+  $('#resultCaption').textContent = type === 'both' ? 'DOCX and PDF files prepared locally' : `${type.toUpperCase()} file prepared locally`;
   if (wordBlob) {
     const wordButton = document.createElement('button');
     wordButton.type = 'button';
@@ -538,48 +468,33 @@ function renderResult(type, wordBlob, pdfBlob) {
     wordButton.addEventListener('click', () => { downloadBlob(wordBlob, 'idmatrix-print-sheet.docx'); showToast('DOCX file downloaded.', 'success'); });
     elements.resultLinks.append(wordButton);
   }
-<<<<<<< HEAD
-  if (pdfHtml) {
-    const downloadButton = document.createElement('button');
-    downloadButton.type = 'button';
-    downloadButton.className = 'button primary';
-    downloadButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-pdf" /></svg> Download PDF';
-    downloadButton.addEventListener('click', () => {
-      try {
-        createPdf(images, crossingText, options).save('idmatrix-print-sheet.pdf');
-        showToast('PDF downloaded to your device.', 'success');
-      } catch (error) {
-        console.error(error);
-        showToast('Could not generate the PDF download.', 'error');
-      }
-    });
-    elements.resultLinks.append(downloadButton);
-
-=======
   if (pdfBlob) {
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
     const pdfButton = document.createElement('button');
     pdfButton.type = 'button';
-    pdfButton.className = 'button outline';
+    pdfButton.className = 'button primary';
     pdfButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-pdf" /></svg> Download PDF';
     pdfButton.addEventListener('click', () => { downloadBlob(pdfBlob, 'idmatrix-print-sheet.pdf'); showToast('PDF file downloaded.', 'success'); });
     elements.resultLinks.append(pdfButton);
     const previewButton = document.createElement('button');
     previewButton.type = 'button';
     previewButton.className = 'button outline';
-    previewButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-image" /></svg> Preview sheet';
+    previewButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-image" /></svg> Preview PDF';
     previewButton.addEventListener('click', () => {
-<<<<<<< HEAD
-      const previewWindow = createOutputWindow();
-      if (previewWindow) writeOutputWindow(previewWindow, pdfHtml);
-=======
       const previewUrl = URL.createObjectURL(pdfBlob);
-      const previewWindow = window.open(previewUrl, '_blank', 'noopener,noreferrer');
+      const previewWindow = window.open(previewUrl, '_blank');
       if (!previewWindow) return showToast('Allow pop-ups to preview the print sheet.', 'warning');
+      previewWindow.opener = null;
       window.setTimeout(() => URL.revokeObjectURL(previewUrl), 60000);
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
     });
     elements.resultLinks.append(previewButton);
+  }
+  if (pdfHtml) {
+    const printButton = document.createElement('button');
+    printButton.type = 'button';
+    printButton.className = 'button outline';
+    printButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-printer" /></svg> Print sheet';
+    printButton.addEventListener('click', () => openPrintWindow(pdfHtml));
+    elements.resultLinks.append(printButton);
   }
   elements.resultSection.classList.remove('hidden');
   elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -589,7 +504,6 @@ async function generate(type) {
   if (state.busy) return;
   if (!state.images.front && !state.images.back) return showToast('Please upload at least one image.', 'warning');
   if (elements.crossing.checked && !selectedCrossingText()) return showToast('Please choose a crossing text or enter custom text.', 'warning');
-  const printWindow = type === 'pdf' ? createOutputWindow() : null;
   setLoading(true, 'Preparing print-ready files…');
   try {
     const options = {
@@ -601,15 +515,11 @@ async function generate(type) {
     };
     const images = { front: await prepareImage(state.images.front, options), back: await prepareImage(state.images.back, options) };
     const text = selectedCrossingText();
+    const printHtml = buildPrintHtml(images, text, options, 'IDMatrix print sheet');
     const wordBlob = type === 'pdf' ? null : await createDocx(images, text, options);
     const pdfBlob = type === 'word' ? null : await createPdf(images, text, options);
     await new Promise((resolve) => window.setTimeout(resolve, 450));
-<<<<<<< HEAD
-    renderResult(type, type === 'pdf' ? '' : printHtml, type === 'word' ? '' : printHtml, images, text, options);
-    if (printWindow) await writeOutputWindow(printWindow, printHtml, true);
-=======
-    renderResult(type, wordBlob, pdfBlob);
->>>>>>> 77158efbc816e785eb439f5c0bcc19a4a531e272
+    renderResult(type, wordBlob, pdfBlob, type === 'word' ? null : printHtml);
     showToast(type === 'both' ? 'Word and PDF outputs are ready.' : `${type === 'word' ? 'Word' : 'PDF'} output is ready.`, 'success');
   } catch (error) {
     console.error(error);
