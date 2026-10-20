@@ -22,7 +22,7 @@
 - [x] **Word, PDF, and Both generation actions are functional**
   - Validate that at least one image is uploaded before generation.
   - Generate a print-ready 4×2 A4 layout from the uploaded front/back content.
-  - Provide a Word-compatible download for Word generation, a browser print/PDF flow for PDF generation, and both outputs for Generate Both.
+  - Provide a real `.docx` download for Word generation, a real `.pdf` download for PDF generation, and both files for Generate Both.
   - Show loading, success, validation, error, and download feedback through visible UI states.
 
 - [x] **Project is runnable, diagnosable, and ready for GitHub**

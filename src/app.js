@@ -1,4 +1,18 @@
 import './styles.css';
+import {
+  AlignmentType,
+  BorderStyle,
+  Document,
+  ImageRun,
+  Packer,
+  Paragraph,
+  Table,
+  TableCell,
+  TableRow,
+  TextRun,
+  WidthType
+} from 'docx';
+import { jsPDF } from 'jspdf';
 
 const state = {
   images: { front: null, back: null },
@@ -259,20 +273,14 @@ async function prepareImage(item, options) {
   return canvas.toDataURL('image/jpeg', .94);
 }
 
-function printCard(imageUrl, crossingText, options) {
-  if (!imageUrl) return '<div class="missing-side">Side not supplied</div>';
-  const mark = crossingText ? `<span class="print-crossing" style="opacity:${options.opacity / 100};font-size:${options.size}em;font-weight:${options.bold ? 800 : 600}">${escapeHtml(crossingText)}</span>` : '';
-  return `<div class="print-image-wrap"><img src="${imageUrl}" alt="ID card side" />${mark}</div>`;
+function dataUrlToUint8Array(dataUrl) {
+  const base64 = dataUrl.split(',')[1] || '';
+  const binary = atob(base64);
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0));
 }
 
-function buildPrintHtml(images, crossingText, options, title = 'IDMatrix print sheet') {
-  const cells = Array.from({ length: 8 }, () => `<td><div class="print-pair">${printCard(images.front, crossingText, options)}${printCard(images.back, crossingText, options)}</div></td>`);
-  const rows = Array.from({ length: 4 }, (_, index) => `<tr>${cells.slice(index * 2, index * 2 + 2).join('')}</tr>`).join('');
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title><style>@page{size:A4 portrait;margin:10mm}*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Arial,sans-serif}.sheet{width:190mm;margin:0 auto}table{width:100%;border-collapse:separate;border-spacing:5mm 4mm;table-layout:fixed}td{height:57mm;padding:3mm;border:1px dashed #bbc2cc;vertical-align:middle}.print-pair{display:flex;flex-direction:column;gap:2mm;align-items:center}.print-image-wrap{position:relative;width:100%;min-height:18mm;display:grid;place-items:center}.print-image-wrap img{display:block;width:100%;max-height:24mm;object-fit:contain}.print-crossing{position:absolute;inset:auto 0;transform:rotate(-25deg);color:#d7263d;text-align:center;letter-spacing:.04em;line-height:1.05;pointer-events:none}.missing-side{width:100%;padding:8mm 2mm;text-align:center;color:#8b95a7;font-size:8pt}@media print{td{break-inside:avoid}}</style></head><body><main class="sheet"><table><tbody>${rows}</tbody></table></main></body></html>`;
-}
-
-function downloadBlob(content, filename, type) {
-  const url = URL.createObjectURL(new Blob([content], { type }));
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
@@ -282,46 +290,148 @@ function downloadBlob(content, filename, type) {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function openPrintWindow(html) {
-  const printWindow = window.open('', '_blank', 'noopener,noreferrer');
-  if (!printWindow) {
-    showToast('Allow pop-ups to open the PDF print dialog.', 'warning');
-    return false;
-  }
-  printWindow.document.write(html);
-  printWindow.document.close();
-  printWindow.focus();
-  printWindow.addEventListener('load', () => printWindow.print());
-  return true;
+function imageRun(dataUrl, width = 250, height = 82) {
+  return new ImageRun({
+    data: dataUrlToUint8Array(dataUrl),
+    type: dataUrl.startsWith('data:image/png') ? 'png' : 'jpg',
+    transformation: { width, height }
+  });
 }
 
-function renderResult(type, wordHtml, pdfHtml) {
+function docxSide(dataUrl, crossingText, options) {
+  if (!dataUrl) return [new Paragraph({ text: 'Side not supplied', alignment: AlignmentType.CENTER })];
+  const paragraphs = [new Paragraph({ children: [imageRun(dataUrl)], alignment: AlignmentType.CENTER, spacing: { before: 30, after: 30 } })];
+  if (crossingText) {
+    paragraphs.push(new Paragraph({
+      children: [new TextRun({
+        text: crossingText,
+        color: 'D7263D',
+        italics: !options.bold,
+        bold: options.bold
+      })],
+      alignment: AlignmentType.CENTER,
+      spacing: { before: 40, after: 40 }
+    }));
+  }
+  return paragraphs;
+}
+
+async function createDocx(images, crossingText, options) {
+  const rows = Array.from({ length: 4 }, (_, rowIndex) => new TableRow({
+    children: Array.from({ length: 2 }, (_, columnIndex) => {
+      const copyIndex = rowIndex * 2 + columnIndex;
+      return new TableCell({
+        width: { size: 50, type: WidthType.PERCENTAGE },
+        margins: { top: 90, bottom: 90, left: 90, right: 90 },
+        borders: {
+          top: { style: BorderStyle.DASHED, size: 4, color: 'BBC2CC' },
+          bottom: { style: BorderStyle.DASHED, size: 4, color: 'BBC2CC' },
+          left: { style: BorderStyle.DASHED, size: 4, color: 'BBC2CC' },
+          right: { style: BorderStyle.DASHED, size: 4, color: 'BBC2CC' }
+        },
+        children: [
+          new Paragraph({ text: `Copy ${copyIndex + 1}`, alignment: AlignmentType.CENTER, style: 'Caption' }),
+          ...docxSide(images.front, crossingText, options),
+          ...docxSide(images.back, crossingText, options)
+        ]
+      });
+    })
+  }));
+  const document = new Document({
+    creator: 'IDMatrix',
+    title: 'IDMatrix print sheet',
+    sections: [{
+      properties: {
+        page: {
+          size: { width: 11906, height: 16838 },
+          margin: { top: 540, right: 540, bottom: 540, left: 540 }
+        }
+      },
+      children: [new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        columnWidths: [50, 50],
+        rows
+      })]
+    }]
+  });
+  return Packer.toBlob(document);
+}
+
+async function imageFit(dataUrl, maxWidth, maxHeight) {
+  if (!dataUrl) return null;
+  const image = await loadImage(dataUrl);
+  const ratio = Math.min(maxWidth / image.naturalWidth, maxHeight / image.naturalHeight, 1);
+  return { width: image.naturalWidth * ratio, height: image.naturalHeight * ratio };
+}
+
+async function addPdfSide(pdf, dataUrl, x, y, maxWidth, maxHeight, crossingText, options) {
+  if (!dataUrl) {
+    pdf.setTextColor(120, 130, 145);
+    pdf.setFontSize(8);
+    pdf.text('Side not supplied', x + maxWidth / 2, y + maxHeight / 2, { align: 'center' });
+    return;
+  }
+  const fit = await imageFit(dataUrl, maxWidth, maxHeight);
+  pdf.addImage(dataUrl, 'JPEG', x + (maxWidth - fit.width) / 2, y + (maxHeight - fit.height) / 2, fit.width, fit.height, undefined, 'MEDIUM');
+  if (crossingText) {
+    pdf.setTextColor(215, 38, 61);
+    pdf.setFont('helvetica', options.bold ? 'bold' : 'normal');
+    pdf.setFontSize(10 * options.size);
+    pdf.text(crossingText, x + maxWidth / 2, y + maxHeight / 2, { align: 'center', angle: -25, maxWidth: maxWidth * .9 });
+  }
+}
+
+async function createPdf(images, crossingText, options) {
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+  const margin = 10;
+  const gap = 5;
+  const cellWidth = (210 - margin * 2 - gap) / 2;
+  const cellHeight = (297 - margin * 2 - gap * 3) / 4;
+  for (let row = 0; row < 4; row += 1) {
+    for (let column = 0; column < 2; column += 1) {
+      const x = margin + column * (cellWidth + gap);
+      const y = margin + row * (cellHeight + gap);
+      pdf.setDrawColor(185, 194, 204);
+      pdf.setLineDashPattern([1, 1], 0);
+      pdf.rect(x, y, cellWidth, cellHeight);
+      pdf.setLineDashPattern([], 0);
+      const innerX = x + 3;
+      const slotWidth = cellWidth - 6;
+      const slotHeight = (cellHeight - 8) / 2;
+      await addPdfSide(pdf, images.front, innerX, y + 3, slotWidth, slotHeight, crossingText, options);
+      await addPdfSide(pdf, images.back, innerX, y + 5 + slotHeight, slotWidth, slotHeight, crossingText, options);
+    }
+  }
+  return pdf.output('blob');
+}
+
+function renderResult(type, wordBlob, pdfBlob) {
   elements.resultLinks.replaceChildren();
-  $('#resultCaption').textContent = type === 'both' ? 'Word and PDF-ready outputs prepared locally' : `${type.toUpperCase()} output prepared locally`;
-  if (wordHtml) {
+  $('#resultCaption').textContent = type === 'both' ? 'Real DOCX and PDF files prepared locally' : `${type.toUpperCase()} file prepared locally`;
+  if (wordBlob) {
     const wordButton = document.createElement('button');
     wordButton.type = 'button';
     wordButton.className = 'button primary';
     wordButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-word" /></svg> Download Word';
-    wordButton.addEventListener('click', () => { downloadBlob(wordHtml, 'idmatrix-print-sheet.doc', 'application/msword'); showToast('Word-compatible file downloaded.', 'success'); });
+    wordButton.addEventListener('click', () => { downloadBlob(wordBlob, 'idmatrix-print-sheet.docx'); showToast('DOCX file downloaded.', 'success'); });
     elements.resultLinks.append(wordButton);
   }
-  if (pdfHtml) {
+  if (pdfBlob) {
     const pdfButton = document.createElement('button');
     pdfButton.type = 'button';
     pdfButton.className = 'button outline';
-    pdfButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-pdf" /></svg> Open PDF print dialog';
-    pdfButton.addEventListener('click', () => openPrintWindow(pdfHtml));
+    pdfButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-pdf" /></svg> Download PDF';
+    pdfButton.addEventListener('click', () => { downloadBlob(pdfBlob, 'idmatrix-print-sheet.pdf'); showToast('PDF file downloaded.', 'success'); });
     elements.resultLinks.append(pdfButton);
     const previewButton = document.createElement('button');
     previewButton.type = 'button';
     previewButton.className = 'button outline';
     previewButton.innerHTML = '<svg aria-hidden="true"><use href="#icon-image" /></svg> Preview sheet';
     previewButton.addEventListener('click', () => {
-      const previewWindow = window.open('', '_blank', 'noopener,noreferrer');
+      const previewUrl = URL.createObjectURL(pdfBlob);
+      const previewWindow = window.open(previewUrl, '_blank', 'noopener,noreferrer');
       if (!previewWindow) return showToast('Allow pop-ups to preview the print sheet.', 'warning');
-      previewWindow.document.write(pdfHtml);
-      previewWindow.document.close();
+      window.setTimeout(() => URL.revokeObjectURL(previewUrl), 60000);
     });
     elements.resultLinks.append(previewButton);
   }
@@ -344,10 +454,10 @@ async function generate(type) {
     };
     const images = { front: await prepareImage(state.images.front, options), back: await prepareImage(state.images.back, options) };
     const text = selectedCrossingText();
-    const printHtml = buildPrintHtml(images, text, options, 'IDMatrix print sheet');
+    const wordBlob = type === 'pdf' ? null : await createDocx(images, text, options);
+    const pdfBlob = type === 'word' ? null : await createPdf(images, text, options);
     await new Promise((resolve) => window.setTimeout(resolve, 450));
-    renderResult(type, type === 'pdf' ? '' : printHtml, type === 'word' ? '' : printHtml);
-    if (type === 'pdf') openPrintWindow(printHtml);
+    renderResult(type, wordBlob, pdfBlob);
     showToast(type === 'both' ? 'Word and PDF outputs are ready.' : `${type === 'word' ? 'Word' : 'PDF'} output is ready.`, 'success');
   } catch (error) {
     console.error(error);
