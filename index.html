@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="IDMatrix-style ID card converter for print-ready Word and PDF documents." />
+    <title>IDMatrix — ID Card Print System — ID Card Converter</title>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-grid" viewBox="0 0 24 24"><path d="M4 3h5v5H4V3Zm0 7h5v5H4v-5Zm0 7h5v4H4v-4Zm7-14h5v5h-5V3Zm0 7h5v5h-5v-5Zm0 7h5v4h-5v-4Zm7-14h2v5h-2V3Zm0 7h2v5h-2v-5Zm0 7h2v4h-2v-4Z"/></symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.6 15.1A8.7 8.7 0 0 1 8.9 3.4 8.8 8.8 0 1 0 20.6 15.1Z"/></symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24"><path d="M12 4V2m0 20v-2m8-8h2M2 12h2m13.7-5.7 1.4-1.4M4.9 19.1l1.4-1.4m0-11.4L4.9 4.9m14.2 14.2-1.4-1.4M16.5 12A4.5 4.5 0 1 1 7.5 12a4.5 4.5 0 0 1 9 0Z"/></symbol>
+      <symbol id="icon-login" viewBox="0 0 24 24"><path d="M14 4h6v16h-6m-1-8H3m0 0 4-4m-4 4 4 4"/></symbol>
+      <symbol id="icon-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2m-12-5h12v8H6v-8Zm11-3h.01"/></symbol>
+      <symbol id="icon-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 4.5-4.5 3.5 3 2.5-2.5L20 18"/></symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></symbol>
+      <symbol id="icon-sliders" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 4v4m8 2v4M10 16v4"/></symbol>
+      <symbol id="icon-crop" viewBox="0 0 24 24"><path d="M6 3v15a3 3 0 0 0 3 3h12M3 6h15a3 3 0 0 1 3 3v12"/></symbol>
+      <symbol id="icon-rotate" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4.2L3 9m0 0V4m0 5h5M4 13a8 8 0 0 0 14.8 4.2L21 15m0 0v5m0-5h-5"/></symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16m-10 4v6m4-6v6M9 7V4h6v3m-9 0 1 14h10l1-14"/></symbol>
+      <symbol id="icon-magic" viewBox="0 0 24 24"><path d="m15 4 5 5M13 6l5 5m-1-9 1-1m-7 19 9-9M4 20l4-4m-6-5 3-1 1-3 1 3 3 1-3 1-1 3-1-3-3-1Zm9-8 2-1 1-2 1 2 2 1-2 1-1 2-1-2-2-1Z"/></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-3Zm-3 9 2 2 4-4"/></symbol>
+      <symbol id="icon-word" viewBox="0 0 24 24"><path d="M13 3h6l3 3v15H7V3h6Zm0 0v4h6M4 8H2v12a2 2 0 0 0 2 2h13M10 11l1.5 5 1.5-3 1.5 3 1.5-5"/></symbol>
+      <symbol id="icon-pdf" viewBox="0 0 24 24"><path d="M13 3h6l3 3v15H7V3h6Zm0 0v4h6M10 15h1.5a1.5 1.5 0 0 0 0-3H10v5m4-5h1a2.5 2.5 0 0 1 0 5h-1v-5m4 0h-2v5m0-2h2"/></symbol>
+      <symbol id="icon-files" viewBox="0 0 24 24"><path d="M8 8V4a2 2 0 0 1 2-2h8l4 4v10a2 2 0 0 1-2 2h-4M16 22H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h8l4 4v10a2 2 0 0 1-2 2Zm-4-16v4h4"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    </svg>
+
+    <header class="public-topbar">
+      <a class="brand" href="#top" aria-label="IDMatrix home">
+        <svg class="brand-icon" aria-hidden="true"><use href="#icon-grid" /></svg>
+        <span class="brand-name">IDMatrix</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-button" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+          <svg id="themeIcon" aria-hidden="true"><use href="#icon-moon" /></svg>
+        </button>
+        <a class="admin-link" id="adminLink" href="#admin"><svg aria-hidden="true"><use href="#icon-login" /></svg><span>Admin</span></a>
+      </div>
+    </header>
+
+    <main class="public-main" id="top">
+      <section class="public-hero" aria-labelledby="pageTitle">
+        <h1 id="pageTitle"><svg aria-hidden="true"><use href="#icon-printer" /></svg> ID Card Converter</h1>
+        <p>Upload your ID card front &amp; back images to generate a print-ready document with 8 copies arranged in a 4×2 grid on A4 paper.</p>
+      </section>
+
+      <form id="publicJobForm" novalidate>
+        <section class="upload-grid" aria-label="Upload ID card images">
+          <article class="card upload-card">
+            <div class="card-header"><span><svg aria-hidden="true"><use href="#icon-image" /></svg> Front Side</span><span class="card-status" id="frontStatus">Waiting</span></div>
+            <div class="card-body">
+              <div class="drop-zone" id="frontDropZone" tabindex="0" role="button" aria-label="Upload front side image">
+                <svg class="upload-icon" aria-hidden="true"><use href="#icon-upload" /></svg>
+                <p>Drag &amp; drop or <span class="browse-link">browse</span></p>
+                <small>PNG, JPG, WEBP up to 10 MB</small>
+                <input type="file" id="frontInput" accept="image/*" hidden />
+              </div>
+              <div class="image-preview-card hidden" id="frontPreview">
+                <div class="preview-shell"><img id="frontPreviewImg" src="" alt="Front side preview" /><span class="crossing-preview" id="frontCrossingPreview"></span></div>
+                <div class="preview-meta"><span id="frontFileName">front-image</span><span id="frontDimensions"></span></div>
+                <div class="preview-actions">
+                  <button type="button" class="mini-button" data-action="crop" data-side="front"><svg aria-hidden="true"><use href="#icon-crop" /></svg> Crop</button>
+                  <button type="button" class="mini-button" data-action="rotate" data-side="front"><svg aria-hidden="true"><use href="#icon-rotate" /></svg> Rotate</button>
+                  <button type="button" class="mini-button danger" data-action="remove" data-side="front" title="Remove front image" aria-label="Remove front image"><svg aria-hidden="true"><use href="#icon-trash" /></svg></button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card upload-card">
+            <div class="card-header"><span><svg aria-hidden="true"><use href="#icon-image" /></svg> Back Side</span><span class="card-status" id="backStatus">Waiting</span></div>
+            <div class="card-body">
+              <div class="drop-zone" id="backDropZone" tabindex="0" role="button" aria-label="Upload back side image">
+                <svg class="upload-icon" aria-hidden="true"><use href="#icon-upload" /></svg>
+                <p>Drag &amp; drop or <span class="browse-link">browse</span></p>
+                <small>PNG, JPG, WEBP up to 10 MB</small>
+                <input type="file" id="backInput" accept="image/*" hidden />
+              </div>
+              <div class="image-preview-card hidden" id="backPreview">
+                <div class="preview-shell"><img id="backPreviewImg" src="" alt="Back side preview" /><span class="crossing-preview" id="backCrossingPreview"></span></div>
+                <div class="preview-meta"><span id="backFileName">back-image</span><span id="backDimensions"></span></div>
+                <div class="preview-actions">
+                  <button type="button" class="mini-button" data-action="crop" data-side="back"><svg aria-hidden="true"><use href="#icon-crop" /></svg> Crop</button>
+                  <button type="button" class="mini-button" data-action="rotate" data-side="back"><svg aria-hidden="true"><use href="#icon-rotate" /></svg> Rotate</button>
+                  <button type="button" class="mini-button danger" data-action="remove" data-side="back" title="Remove back image" aria-label="Remove back image"><svg aria-hidden="true"><use href="#icon-trash" /></svg></button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="card options-card" aria-labelledby="optionsTitle">
+          <div class="card-header"><span id="optionsTitle"><svg aria-hidden="true"><use href="#icon-sliders" /></svg> Processing Options</span></div>
+          <div class="options-body">
+            <label class="option-check"><input type="checkbox" id="chkAutoCrop" /><span class="checkmark"></span><span><strong><svg aria-hidden="true"><use href="#icon-crop" /></svg> Auto Edge Crop</strong><small>Trim empty borders around the card</small></span></label>
+            <label class="option-check"><input type="checkbox" id="chkEnhance" /><span class="checkmark"></span><span><strong><svg aria-hidden="true"><use href="#icon-magic" /></svg> Magic Enhance</strong><small>Boost contrast &amp; sharpen like CamScanner</small></span></label>
+            <div class="crossing-option">
+              <label class="option-check"><input type="checkbox" id="chkCrossing" /><span class="checkmark"></span><span><strong><svg aria-hidden="true"><use href="#icon-shield" /></svg> Cross ID Card</strong><small>Applied to generated Word/PDF only; uploads stay clean</small></span></label>
+              <div class="crossing-controls hidden" id="crossingControls">
+                <select class="select-control" id="crossingPreset" aria-label="Choose crossing text">
+                  <option value="">Choose crossing text...</option>
+                  <option>FOR VERIFICATION ONLY</option>
+                  <option>FOR EDUCATIONAL RECORD ONLY</option>
+                  <option>FOR GOVERNMENT RECORD ONLY</option>
+                  <option>FOR SALE/PURCHASE OF ELECTRONICS ONLY</option>
+                  <option>FOR BANKING PURPOSE ONLY</option>
+                  <option>FOR SIM REGISTRATION ONLY</option>
+                  <option>FOR OFFICE RECORD ONLY</option>
+                  <option value="__custom__">Custom text...</option>
+                </select>
+                <input class="text-control hidden" id="customCrossingText" maxlength="150" placeholder="Enter custom crossing text" autocomplete="off" />
+                <div class="adjustments hidden" id="crossingAdjustments">
+                  <label class="range-label" for="crossingSizeRange"><span>Size</span><strong id="crossingSizeValue">140%</strong></label>
+                  <input type="range" id="crossingSizeRange" min="60" max="200" step="10" value="140" />
+                  <label class="range-label" for="crossingOpacityRange"><span>Transparency</span><strong id="crossingOpacityValue">70% visible</strong></label>
+                  <input type="range" id="crossingOpacityRange" min="10" max="100" step="5" value="70" />
+                  <label class="bold-toggle"><input type="checkbox" id="crossingBold" /> <span>Bold crossing text</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="action-row">
+          <button type="button" class="button primary" id="btnDocx"><svg aria-hidden="true"><use href="#icon-word" /></svg> Generate Word</button>
+          <button type="button" class="button outline" id="btnPdf"><svg aria-hidden="true"><use href="#icon-pdf" /></svg> Generate PDF</button>
+          <button type="button" class="button outline" id="btnBoth"><svg aria-hidden="true"><use href="#icon-files" /></svg> Generate Both</button>
+        </div>
+
+        <section class="card result-card hidden" id="resultSection" aria-live="polite">
+          <div class="card-header success-header"><span><svg aria-hidden="true"><use href="#icon-check" /></svg> Files Ready</span><span class="result-caption" id="resultCaption">Prepared locally</span></div>
+          <div class="result-body" id="resultLinks"></div>
+        </section>
+      </form>
+    </main>
+
+    <footer class="public-footer">© 2026 IDMatrix. All rights reserved.</footer>
+
+    <div class="modal-backdrop hidden" id="cropperModal" role="dialog" aria-modal="true" aria-labelledby="cropperTitle">
+      <div class="modal-card">
+        <div class="modal-header"><h2 id="cropperTitle"><svg aria-hidden="true"><use href="#icon-crop" /></svg> Crop &amp; Adjust</h2><button type="button" class="close-button" id="cropClose" aria-label="Close crop dialog"><svg aria-hidden="true"><use href="#icon-x" /></svg></button></div>
+        <div class="crop-stage"><img id="cropperImage" src="" alt="Crop preview" /></div>
+        <div class="modal-footer"><button type="button" class="button outline" id="cropRotateLeft"><svg aria-hidden="true"><use href="#icon-rotate" /></svg> Rotate</button><button type="button" class="button primary" id="cropApplyBtn"><svg aria-hidden="true"><use href="#icon-check" /></svg> Apply crop</button></div>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+    <div class="loading-overlay hidden" id="loadingOverlay"><div class="spinner-wrap"><span class="spinner"></span><p id="loadingText">Processing…</p></div></div>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
