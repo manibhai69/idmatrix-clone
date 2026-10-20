@@ -13,6 +13,7 @@ import {
   WidthType
 } from 'docx';
 import { jsPDF } from 'jspdf';
+import { inject } from '@vercel/analytics';
 
 const state = {
   images: { front: null, back: null },
@@ -506,3 +507,6 @@ $('#cropperModal').addEventListener('click', (event) => { if (event.target === e
 $('#cropRotateLeft').addEventListener('click', async () => { if (state.cropSide) { await rotateImage(state.cropSide, -90); elements.cropperImage.src = state.images[state.cropSide].dataUrl; } });
 $('#cropApplyBtn').addEventListener('click', applyCrop);
 updateCrossingControls();
+
+// Initialize Vercel Web Analytics
+inject();
