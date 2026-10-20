@@ -9,8 +9,8 @@ A standalone, responsive clone of the public IDMatrix ID card converter page. It
 - Client-side preview, rotate, crop, and remove actions.
 - Auto edge trim and contrast enhancement during output preparation.
 - Crossing text presets plus custom text, size, opacity, and bold controls.
-- Word-compatible `.doc` download and browser print flow for PDF output.
-- 4×2 A4 print layout with front/back content in each copy.
+- Word-compatible `.doc` and direct PDF downloads, plus a browser print flow.
+- Two-page A4 print layout with eight front copies on page one and eight back copies on page two, arranged in 4×2 grids.
 
 ## Development
 
